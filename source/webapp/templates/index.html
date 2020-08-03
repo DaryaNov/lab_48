@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Hello{% endblock %}
+
+{% block content %}
+    <h1> My mini shop!</h1>
+    {% for p in product %}
+        <div class="linegr">
+            <h4><a href="{% url "product_view" p.pk %}">{{ p.name }} ({{ p.price }})</a></h4>
+        <p>{{ p.category }}</p>
+         <a href="{% url 'product_update' p.pk %}"> Update </a>
+        <a href="{% url 'product_delete' p.pk %}"> Delete </a>
+        </div>
+    {% endfor %}
+{% endblock %}

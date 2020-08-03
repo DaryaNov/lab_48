@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}View{% endblock %}
+
+{% block content %}
+    <h1>Product:{{ product.name }}</h1>
+     <p>Price:{{ product.price }}</p>
+    <p>Amount:{{ product.amount }}</p>
+    <p>Category:{{ product.category }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p><a href="/">На главную</a></p>
+{% endblock %}
