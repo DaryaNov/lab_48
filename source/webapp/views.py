@@ -1,89 +1,120 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
+from django.shortcuts import render, redirect, get_object_or_404,reverse
 from django.http import HttpResponseNotAllowed, Http404
-from webapp.models import Product
-from webapp.forms import ProductForm
-
-def index_view(request):
-
-    product = Product.objects.all()
-    context = {
-        'product': product
-    }
-    return render(request, 'index.html', context)
+from django.views import View
+from webapp.models import Product, Basket,Order
+from webapp.forms import ProductForm,SimpleSearchForm,BasketForm,OrderForm
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView,ListView,TemplateView
+from .base import SearchView
+from django.urls import reverse,reverse_lazy
 
 
-def product_create(request):
-    if request.method == "GET":
-        return render(request, 'product_create.html', context={
-            'form': ProductForm()
-         })
-    elif request.method == 'POST':
-        form = ProductForm(data=request.POST)
-        if form.is_valid():
-            product = Product.objects.create(
-                name=form.cleaned_data['name'],
-                price=form.cleaned_data['price'],
-                amount=form.cleaned_data['amount'],
-                category=form.cleaned_data['category'],
-                description=form.cleaned_data['description']
-            )
-            return redirect('product_view', pk=product.pk)
-        else:
-            return render(request, 'product_create.html', context={
-                'form': form
-            })
-    else:
-        return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
+class IndexView(SearchView):
+    template_name = 'index.html'
+    context_object_name = 'products'
+    paginate_by = 5
+    paginate_orphans = 0
+    model = Product
+    search_fields = ['name__icontains']
+
+    def get_queryset(self):
+        data = super().get_queryset()
+        return data
+
+class ProductView(TemplateView):
+    template_name = 'product_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        pk = self.kwargs.get('pk')
+        product = get_object_or_404(Product, pk=pk)
+
+        context['product'] = product
+        return context
 
 
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'product_create.html'
 
-def product_view(request, pk):
-
-    product = get_object_or_404(Product, pk=pk)
-
-    context = {'product': product}
-    return render(request, 'product_view.html', context)
+    def get_success_url(self):
+        return reverse('product_view', kwargs={'pk': self.object.pk})
 
 
+class ProductUpdateView(UpdateView):
+    model = Product
+    template_name = 'product_update.html'
+    form_class = ProductForm
 
-def product_update(request,pk):
-    product = get_object_or_404(Product,pk=pk)
-    if request.method == "GET":
-        form = ProductForm(initial={
-            'name': product.name,
-            'price': product.price,
-            'amount': product.amount,
-            'category':product.category,
-            'description':product.description
-        })
-        return render(request, 'product_update.html', context={
-            'form': form,
-            'product': product
-        })
-    elif request.method == 'POST':
-        form = ProductForm(data=request.POST)
-        if form.is_valid():
-            product.name = form.cleaned_data['name']
-            product.price = form.cleaned_data['price']
-            product.amount = form.cleaned_data['amount']
-            product.category = form.cleaned_data['category']
-            product.description = form.cleaned_data['description']
-            product.save()
-            return redirect('product_view',pk=product.pk)
-        else:
-            return render(request, 'product_update.html', context={
-                'product': product,
-                'form': form
-            })
-    else:
-        return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
+    def get_success_url(self):
+        return reverse('product_view', kwargs={'pk': self.object.pk})
+
+
+class ProductDeleteView(DeleteView):
+    template_name = 'product_delete.html'
+    model = Product
+    success_url = reverse_lazy('index')
+
+# ======================================================
+
+
+class BasketCreateView(CreateView):
+    model = Basket
+    template_name = 'basket_view.html'
+    form_class = BasketForm
+
+    def form_valid(self, form):
+        totals = {}
+        product = get_object_or_404(Product, pk=self.kwargs.get('pk'))
+        for products in product:
+            if products not in totals:
+                totals[products] = 0
+            totals[products] += 1
+        totals = form.save(commit=False)
+        totals.product = product
+        totals.save()
+        return redirect('product_view',pk=product.pk)
 
 
 
-def product_delete(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == 'GET':
-       return render(request, 'product_delete.html', context={'product': product})
-    elif request.method == 'POST':
-        product.delete()
-        return redirect('index')
+class BasketView(TemplateView):
+    template_name = 'basket_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        pk = self.kwargs.get('pk')
+        product = get_object_or_404(Basket, pk=pk)
+
+        context['product'] = product
+        return context
+
+# =================================================================
+
+class OrderCreateView(CreateView):
+    model = Order
+    template_name = 'order_create.html'
+    form_class = OrderForm
+
+    def form_valid(self, form):
+        product = get_object_or_404(Product, pk=self.kwargs.get('pk'))
+        order = form.save(commit=False)
+        order.product = product
+        order.save()
+        form.save_m2m()
+        return redirect('order_view', pk=product.pk)
+
+
+class OrderView(TemplateView):
+    template_name = 'order_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        pk = self.kwargs.get('pk')
+        order = get_object_or_404(Order, pk=pk)
+
+        context['order'] = order
+        return context

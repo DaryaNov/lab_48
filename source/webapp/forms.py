@@ -26,4 +26,4 @@ class BasketForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = []
+        exclude = ['product']
