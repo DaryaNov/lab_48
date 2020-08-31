@@ -3,10 +3,10 @@
   "model": "webapp.product",
   "pk": 1,
   "fields": {
-    "name": "\u0428\u0430\u043c\u043f\u0443\u043d\u044c",
-    "description": "\u0434\u043b\u044f \u043d\u043e\u0440\u043c \u0432\u043e\u043b\u043e\u0441",
-    "category": "household",
-    "amount": 15,
+    "name": "name",
+    "description": "descriptiondd",
+    "category": "other",
+    "amount": 10,
     "price": "150.00"
   }
 },
@@ -14,71 +14,100 @@
   "model": "webapp.product",
   "pk": 2,
   "fields": {
-    "name": "\u0425\u043b\u0435\u0431",
-    "description": "\u0441\u0432\u0435\u0436\u0438\u0439",
-    "category": "food",
-    "amount": 150,
-    "price": "15.00"
+    "name": "Bug",
+    "description": "frfrfrfr",
+    "category": "other",
+    "amount": 12,
+    "price": "125.00"
   }
 },
 {
   "model": "webapp.product",
   "pk": 3,
   "fields": {
-    "name": "\u041d\u0430\u0441\u0442\u043e\u043b\u044c\u043d\u0430\u044f \u0438\u0433\u0440\u0430 \"\u041a\u043e\u0448\u043a\u0438-\u041c\u044b\u0448\u043a\u0438\"",
-    "description": "\u0434\u043b\u044f \u0434\u0435\u0442\u0435\u0439 \u043e\u0442 3\u0445-6 \u043b\u0435\u0442",
-    "category": "toys",
+    "name": "Sha",
+    "description": "dfdfdfdfdf",
+    "category": "food",
     "amount": 10,
-    "price": "3500.00"
+    "price": "123.00"
   }
 },
 {
   "model": "webapp.product",
   "pk": 4,
   "fields": {
-    "name": "\u0425\u043e\u043b\u043e\u0434\u0438\u043b\u044c\u043d\u0438\u043a",
-    "description": "\u0445\u043e\u043b\u043e\u0434\u0438\u0442",
-    "category": "appliances",
-    "amount": 10,
-    "price": "10000.00"
+    "name": "\u0428\u0430\u043c\u043f\u0443\u043d\u044c",
+    "description": "dsdsd",
+    "category": "household",
+    "amount": 150,
+    "price": "136.00"
   }
 },
 {
   "model": "webapp.product",
   "pk": 5,
   "fields": {
-    "name": "\u0442\u043a\u0430\u043d\u044c",
-    "description": "\u0448\u0435\u043b\u043a",
-    "category": "other",
-    "amount": 150,
-    "price": "150.00"
+    "name": "Done",
+    "description": "wredtrftygyu",
+    "category": "household",
+    "amount": 44,
+    "price": "23.00"
   }
 },
 {
   "model": "webapp.product",
   "pk": 6,
   "fields": {
-    "name": "\u043c\u043e\u043b\u043e\u043a\u043e",
-    "description": "\u043a\u043e\u0440\u043e\u0432\u044c\u0435",
-    "category": "food",
-    "amount": 10,
-    "price": "55.00"
+    "name": "hear",
+    "description": "hear",
+    "category": "other",
+    "amount": 1,
+    "price": "15000.00"
+  }
+},
+{
+  "model": "webapp.basket",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "amount": 4
+  }
+},
+{
+  "model": "webapp.basket",
+  "pk": 2,
+  "fields": {
+    "product": 4,
+    "amount": 10
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 1,
+  "fields": {
+    "first_name": "Darianvs",
+    "address": "fgfggff",
+    "phone": "0555656565",
+    "created": "2020-08-31T09:28:53.897Z",
+    "product": [
+      1
+    ]
   }
 },
 {
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$150000$tBhXpemhj8yn$CA2GgNQYjHbI8M4/vWWshQJRthtnZT7U3zPuOqRE1Sc=",
-    "last_login": null,
+    "password": "pbkdf2_sha256$150000$zbsUSeuMKB2u$Qysei5DVPer26r7jTKEm/C4k63mCfpATalE7e0FER0M=",
+    "last_login": "2020-08-27T21:00:06.806Z",
     "is_superuser": true,
-    "username": "admin",
+    "username": "Gg",
     "first_name": "",
     "last_name": "",
-    "email": "admin@mail.ru",
+    "email": "fg@mail.ru",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2020-08-03T10:34:53.156Z",
+    "date_joined": "2020-08-27T20:59:33.570Z",
     "groups": [],
     "user_permissions": []
   }
@@ -87,34 +116,16 @@
   "model": "auth.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$150000$eCp1B4duJJ0D$+ielBMrL89JgQKaX9x3VX39UevRfMWwZPEVy5T/BiK4=",
-    "last_login": null,
+    "password": "pbkdf2_sha256$150000$pciSZAyPxc9l$OFY26t+mv+w8bSYeO93mv6x3xzn3A2gi3U9GQ7RrUP0=",
+    "last_login": "2020-08-31T11:35:13.538Z",
     "is_superuser": true,
-    "username": "admin1",
+    "username": "ko",
     "first_name": "",
     "last_name": "",
-    "email": "admin1@mail.ru",
+    "email": "d@mail.ru",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2020-08-03T10:44:47.966Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 3,
-  "fields": {
-    "password": "pbkdf2_sha256$150000$QfKaCeyXz7ZR$eQwFoxSRwcw5k6ze0S2u8NgI2pfs+22o8xdE3tEUS0s=",
-    "last_login": "2020-08-03T10:47:27.635Z",
-    "is_superuser": true,
-    "username": "Dasha",
-    "first_name": "",
-    "last_name": "",
-    "email": "da@mail.ru",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2020-08-03T10:46:27.276Z",
+    "date_joined": "2020-08-31T11:34:45.902Z",
     "groups": [],
     "user_permissions": []
   }
