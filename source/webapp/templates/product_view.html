@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}View{% endblock %}
-
+{% block menu %}
+     <li><a href="{% url 'product_update' product.pk %}">Update product</a></li>
+    <li><a href="{% url 'product_delete' product.pk %}">Delete product</a></li>
+{% endblock %}
 {% block content %}
     <h1>Product:{{ product.name }}</h1>
      <p>Price:{{ product.price }}</p>

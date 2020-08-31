@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Your shopping cart
+{% endblock %}
+{% block content %}
+    <h1>Your shopping cart</h1>
+        {% for basket in products %}
+            <tr>
+                <td>{{ basket.name }}</td>
+                <td>{{ basket.amount }}</td>
+            </tr>
+        {% endfor %}
+{% endblock %}

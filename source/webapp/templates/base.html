@@ -15,9 +15,18 @@
        <div class="container">
            <ul class="menu">
                <li><a href="{% url 'index' %}">Home</a></li>
-               <li><a href="{% url 'product_create' %}">Create product</a></li>
+                <li><a href="{% url 'product_create' %}">Create product</a></li>
+                <li><a href="{% url 'order_create' %}">Create order</a></li>
                {% block menu %}{% endblock %}
            </ul>
+{#            {% block search %}#}
+{#                <div class="search-form">#}
+{#                    <form action="{% url 'index' %}" method="GET">#}
+{#                        {{ search_form.search }}#}
+{#                        <input type="submit" value="Найти">#}
+{#                    </form>#}
+{#                </div>#}
+{#            {% endblock %}#}
        </div>
     </nav>
     <div class="container">
