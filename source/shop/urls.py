@@ -15,13 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import index_view,product_create,product_view,product_update,product_delete
+from webapp.views import IndexView,ProductCreateView, ProductView, BasketCreateView,BasketView,OrderCreateView,\
+    OrderView,ProductUpdateView,ProductDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',index_view, name='index'),
-    path('products/add/', product_create, name='product_create'),
-    path('product/<int:pk>/', product_view, name='product_view'),
-    path('product/<int:pk>/update/', product_update, name='product_update'),
-    path('product/<int:pk>/delete/', product_delete, name='product_delete')
+    path('',IndexView.as_view () , name='index'),
+    path('product/<int:pk>/', ProductView.as_view(), name='product_view'),
+    path('products/add/', ProductCreateView.as_view(), name='product_create'),
+    path('product/<int:pk>/update/', ProductUpdateView.as_view(), name='product_update'),
+    path('product/<int:pk>/delete/', ProductDeleteView.as_view(), name='product_delete'),
+    path('baskets/add/', BasketCreateView.as_view(), name='basket_create'),
+    path('product/<int:pk>/basket/', BasketView.as_view(), name='basket_view'),
+    path('order/add/', OrderCreateView.as_view(), name='order_create'),
+    path('order/', OrderView.as_view(), name='order_view')
+
 ]
