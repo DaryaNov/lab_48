@@ -26,3 +26,17 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+
+class Basket(models.Model):
+    product = models.ForeignKey('Product', related_name='products',
+                                on_delete=models.CASCADE, verbose_name='Продукт')
+    amount = models.IntegerField(verbose_name='Остаток', validators=[MinValueValidator(0)])
+
+
+class Order(models.Model):
+    product = models.ManyToManyField('Product',related_name='order_product',verbose_name='Продукты')
+    first_name = models.CharField(max_length=50,null=True, blank=True, verbose_name='Имя')
+    address = models.CharField(max_length=250,null=True, blank=True, verbose_name='Адресс')
+    phone = models.CharField(max_length=20,null=True, blank=True, verbose_name='Телефон')
+    created = models.DateTimeField(auto_now_add=True,verbose_name='Время создания')
